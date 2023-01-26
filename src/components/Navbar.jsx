@@ -37,7 +37,12 @@ function Navbar() {
     };
     // snackbar logic
 
-    const{userData, setUserData} = useContext(userInfo);
+    const{userData, setUserData, setMode, mode} = useContext(userInfo);
+
+    function toggleMode(){
+        const update = mode === "light" ? "dark" : "light"
+        setMode(update)
+    }
 
     const navigate = useNavigate();
 
@@ -67,6 +72,7 @@ function Navbar() {
                     </IconButton>
                 </Tooltip>
                 <Typography variant="body1" component="span">Notes App</Typography>
+                <button onClick={toggleMode}>Toggle mode</button>
             </Grid>
             <Grid item xs={3} md={1}>
                 {userData ? <Typography sx={{cursor: "pointer"}} variant="body1" onClick={signOut_from_device}>Sign-out</Typography> : <Typography sx={{cursor: "pointer"}} variant="body1" onClick={() => navigate("/login")}>Sign-in</Typography>}

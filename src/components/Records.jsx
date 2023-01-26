@@ -1,4 +1,4 @@
-import { Box, Button, Card, IconButton, styled, Tab, Tabs, TextField, Typography } from "@mui/material";
+import { Box, Button, Card, IconButton, Skeleton, styled, Tab, Tabs, TextField, Typography } from "@mui/material";
 import { forwardRef, useEffect } from "react";
 import { useContext, useState } from "react";
 import { userInfo } from "../App";
@@ -21,6 +21,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Tooltip from '@mui/material/Tooltip';
+import MySkeleton from "./Skeleton";
 
 
 
@@ -151,7 +152,7 @@ function Records({setInvoker, invoker}) {
                         </Snackbar>
                     </Box>
                 :
-                "Loading...."
+                <MySkeleton />
                 // Build a Skeleton to show in the shape of your card
             }
         </>
