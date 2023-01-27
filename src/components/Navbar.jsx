@@ -1,4 +1,4 @@
-import { AppBar, Avatar, Button, Container, Grid, IconButton, Paper, styled, Toolbar, Tooltip, Typography } from "@mui/material";
+import { AppBar, Avatar, Button, Container, Grid, IconButton, Paper, styled, Switch, Toolbar, Tooltip, Typography } from "@mui/material";
 import NotesIcon from '@mui/icons-material/Notes';
 import { useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
@@ -13,6 +13,12 @@ import MuiAlert from '@mui/material/Alert';
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
+
+const MyFlexWrapper = styled("div")({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between"
+})
 
 
 function Navbar() {
@@ -65,22 +71,24 @@ function Navbar() {
   return (
     <AppBar position="sticky" sx={{padding: "3px"}}>
         <Grid container sx={{alignItems: "center"}}>
-            <Grid item xs={6} md={10}>
+            <Grid item xs={5} md={9}>
                 <Tooltip title="Go to home">
                     <IconButton onClick={() => navigate("/")}>
                         <NotesIcon />
                     </IconButton>
                 </Tooltip>
                 <Typography variant="body1" component="span">Notes App</Typography>
-                <button onClick={toggleMode}>Toggle mode</button>
-            </Grid>
-            <Grid item xs={3} md={1}>
-                {userData ? <Typography sx={{cursor: "pointer"}} variant="body1" onClick={signOut_from_device}>Sign-out</Typography> : <Typography sx={{cursor: "pointer"}} variant="body1" onClick={() => navigate("/login")}>Sign-in</Typography>}
             </Grid>
             <Grid item xs={3} md={1}>
                 {userData ? 
                     <Avatar alt="profile pic" src={userData.photoURL} />
                 : null}
+            </Grid>
+            <Grid item xs={4} md={2}>
+                <MyFlexWrapper>
+                    {userData ? <Typography sx={{cursor: "pointer"}} variant="body1" onClick={signOut_from_device}>Sign-out</Typography> : <Typography sx={{cursor: "pointer"}} variant="body1" onClick={() => navigate("/login")}>Sign-in</Typography>}
+                    <Switch onChange={toggleMode} />
+                </MyFlexWrapper>
             </Grid>
         </Grid>
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
